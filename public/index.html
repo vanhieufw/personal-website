@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giới thiệu bản thân</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="banner">
+    <div class="marquee" id="marquee">Đang tải tin nhắn...</div>
+  </div>
+
+  <div class="container">
+    <section class="intro">
+      <div class="avatar-wrapper">
+        <img src="https://i.pravatar.cc/300?img=12" alt="Avatar" class="avatar" id="avatar">
+      </div>
+      <h1>Xin chào, mình là <span>Nguyễn Văn A</span></h1>
+      <p class="subtitle">Sinh viên ngành Công nghệ Thông tin</p>
+      <p class="bio">
+        Mình là sinh viên năm X, đam mê lập trình web, Docker và DevOps. 
+        Sở thích: đọc sách, chơi game và học công nghệ mới.
+      </p>
+    </section>
+
+    <section class="contact">
+      <h2>Gửi lời nhắn cho mình</h2>
+      <form id="messageForm">
+        <input type="text" id="name" placeholder="Tên của bạn" required>
+        <textarea id="message" placeholder="Nội dung tin nhắn..." rows="4" required></textarea>
+        <button type="submit">Gửi tin nhắn</button>
+      </form>
+      <p id="formStatus"></p>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
