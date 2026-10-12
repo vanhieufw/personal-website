@@ -4,36 +4,94 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Giới thiệu bản thân</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Animated background layers -->
+  <div class="bg-grid"></div>
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+  <div class="bg-glow bg-glow-3"></div>
+  <div class="particles" id="particles"></div>
+
+  <!-- Top neon marquee banner -->
   <div class="banner">
-    <div class="marquee" id="marquee">Đang tải tin nhắn...</div>
+    <div class="banner-inner">
+      <div class="marquee" id="marquee">Đang tải tin nhắn...</div>
+    </div>
+    <div class="banner-shine"></div>
   </div>
 
   <div class="container">
-    <section class="intro">
+    <!-- Intro card -->
+    <section class="intro glass">
+      <div class="intro-ring"></div>
       <div class="avatar-wrapper">
+        <div class="avatar-ring"></div>
+        <div class="avatar-ring avatar-ring-2"></div>
         <img src="https://i.pravatar.cc/300?img=12" alt="Avatar" class="avatar" id="avatar">
+        <div class="avatar-status"></div>
       </div>
-      <h1>Xin chào, mình là <span>Nguyễn Văn A</span></h1>
-      <p class="subtitle">Sinh viên ngành Công nghệ Thông tin</p>
+
+      <div class="badge">ONLINE</div>
+
+      <h1>Xin chào, mình là <span class="name-glow">NTC</span></h1>
+      <p class="subtitle">
+        <span class="tag">IT Student</span>
+        <span class="tag">Web Dev</span>
+        <span class="tag">DevOps</span>
+      </p>
       <p class="bio">
-        Mình là sinh viên năm X, đam mê lập trình web, Docker và DevOps. 
+        Mình là sinh viên năm 10, KHÔNG đam mê lập trình web, Docker và DevOps.
         Sở thích: đọc sách, chơi game và học công nghệ mới.
       </p>
+
+      <div class="tech-stack">
+        <span>HTML</span>
+        <span>CSS</span>
+        <span>JS</span>
+        <span>Docker</span>
+        <span>Linux</span>
+      </div>
     </section>
 
-    <section class="contact">
-      <h2>Gửi lời nhắn cho mình</h2>
+    <!-- Contact card -->
+    <section class="contact glass">
+      <div class="section-header">
+        <div class="icon-box">✉️</div>
+        <h2>Gửi lời nhắn cho mình</h2>
+        <p class="section-desc">Mọi tin nhắn đều được đón nhận với niềm vui</p>
+      </div>
+
       <form id="messageForm">
-        <input type="text" id="name" placeholder="Tên của bạn" required>
-        <textarea id="message" placeholder="Nội dung tin nhắn..." rows="4" required></textarea>
-        <button type="submit">Gửi tin nhắn</button>
+        <div class="input-group">
+          <label for="name">Tên của bạn</label>
+          <input type="text" id="name" placeholder="Nhập tên..." required autocomplete="name">
+          <div class="input-glow"></div>
+        </div>
+
+        <div class="input-group">
+          <label for="message">Nội dung tin nhắn</label>
+          <textarea id="message" placeholder="Viết gì đó thật cool..." rows="4" required></textarea>
+          <div class="input-glow"></div>
+        </div>
+
+        <button type="submit" class="btn-submit">
+          <span class="btn-text">Gửi tin nhắn</span>
+          <span class="btn-shine"></span>
+        </button>
       </form>
+
       <p id="formStatus"></p>
     </section>
   </div>
+
+  <footer class="footer">
+    <span>Made with 💜 • Nguyễn Thanh Hiếu</span>
+  </footer>
 
   <script src="script.js"></script>
 </body>

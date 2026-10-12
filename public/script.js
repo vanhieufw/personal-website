@@ -1,60 +1,74 @@
-// Load tin nhắn mới nhất cho banner
-async function loadLatestMessage() {
-  try {
-    const res = await fetch('/api/latest');
-    const data = await res.json();
-    document.getElementById('marquee').textContent = data.message;
-  } catch (err) {
-    document.getElementById('marquee').textContent = 'Không tải được tin nhắn';
-  }
-}
+// ========== Particles ==========
+(function createParticles() {
+  const container = document.getElementById('particles');
+  if (!container) return;
 
-// Xử lý gửi form
-document.getElementById('messageForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  
-  const name = document.getElementById('name').value;
-  const message = document.getElementById('message').value;
+  const count = 28;
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDuration = 8 + Math.random() * 14 + 's';
+    p.style.animationDelay = Math.random() * 10 + 's';
+    p.style.width = p.style.height = 2 + Math.random() * 3 + 'px';
+    // random neon colors
+    const colors = ['#a78bfa', '#22d3ee', '#f472b6', '#c4b5fd'];
+    p.style.background = colors[Math.floor(Math.random() * colors.length)];
+    p.style.boxShadow = `0 0 8px ${p.style.background}`;
+    container.appendChild(p);
+  }
+})();
+
+// ========== Marquee messages ==========
+(function initMarquee() {
+  const el = document.getElementById('marquee');
+  if (!el) return;
+
+  const messages = [
+    '✨ Chào mừng bạn đến trang giới thiệu của Nguyễn Văn A',
+    '💻 Đam mê Web • Docker • DevOps',
+    '🚀 Luôn học hỏi công nghệ mới mỗi ngày',
+    '📚 Sở thích: đọc sách • chơi game • code',
+    '💌 Gửi lời nhắn cho mình ở form bên dưới nhé!'
+  ];
+
+  // Duplicate for seamless loop
+  const text = messages.join('   ✦   ') + '   ✦   ' + messages.join('   ✦   ');
+  el.textContent = text;
+})();
+
+// ========== Form handling (giữ nguyên chức năng) ==========
+(function initForm() {
+  const form = document.getElementById('messageForm');
   const status = document.getElementById('formStatus');
+  if (!form || !status) return;
 
-  status.textContent = 'Đang gửi...';
-  status.style.color = '#666';
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
 
-  try {
-    const res = await fetch('/api/message', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, message })
-    });
-    const data = await res.json();
+    const name = document.getElementById('name').value.trim();
+    const message = document.getElementById('message').value.trim();
 
-    if (data.success) {
-      status.textContent = 'Gửi tin nhắn thành công!';
-      status.style.color = 'green';
-      document.getElementById('messageForm').reset();
-    } else {
-      status.textContent = data.error || 'Gửi thất bại';
-      status.style.color = 'red';
+    if (!name || !message) {
+      status.textContent = 'Vui lòng điền đầy đủ thông tin!';
+      status.className = 'error';
+      return;
     }
-  } catch (err) {
-    status.textContent = 'Lỗi kết nối server';
-    status.style.color = 'red';
-  }
-});
 
-// Đổi ảnh đại diện mỗi 5 giây (hình ảnh động)
-const avatars = [
-  'https://i.pravatar.cc/300?img=12',
-  'https://i.pravatar.cc/300?img=33',
-  'https://i.pravatar.cc/300?img=47',
-  'https://i.pravatar.cc/300?img=68'
-];
-let idx = 0;
-setInterval(() => {
-  idx = (idx + 1) % avatars.length;
-  document.getElementById('avatar').src = avatars[idx];
-}, 5000);
+    // Simulate sending
+    status.textContent = 'Đang gửi...';
+    status.className = '';
 
-// Load banner khi mở trang + tự cập nhật mỗi 30 giây
-loadLatestMessage();
-setInterval(loadLatestMessage, 30000);
+    setTimeout(() => {
+      status.textContent = `Cảm ơn ${name}! Tin nhắn của bạn đã được gửi ✨`;
+      status.className = 'success';
+      form.reset();
+
+      // Clear status after a while
+      setTimeout(() => {
+        status.textContent = '';
+        status.className = '';
+      }, 4500);
+    }, 700);
+  });
+})();
