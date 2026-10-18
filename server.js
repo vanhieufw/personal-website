@@ -9,11 +9,18 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // ===== Cấu hình Telegram (bật khi có token) =====
+// ===== Cấu hình Telegram (sửa lỗi constructor) =====
 let bot = null;
 if (process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID) {
-  const TelegramBot = require('node-telegram-bot-api');
-  bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN, { polling: false });
-  console.log('Telegram Bot đã sẵn sàng');
+  try {
+    const TelegramBotModule = require('node-telegram-bot-api');
+    // Xử lý linh hoạt cả module ES và CommonJS
+    const TelegramBot = TelegramBotModule.default || TelegramBotModule;
+    bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN, { polling: false });
+    console.log('Telegram Bot đã sẵn sàng');
+  } catch (err) {
+    console.error('Lỗi khi khởi tạo Telegram Bot:', err.message);
+  }
 }
 
 app.use(cors());
