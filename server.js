@@ -10,13 +10,14 @@ const PORT = process.env.PORT || 3000;
 
 // ===== Cấu hình Telegram (bật khi có token) =====
 // ===== Cấu hình Telegram (sửa lỗi constructor) =====
+// ===== Cấu hình Telegram (Sửa chuẩn cho phiên bản 2.1.0) =====
 let bot = null;
 if (process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID) {
   try {
-    const TelegramBotModule = require('node-telegram-bot-api');
-    // Xử lý linh hoạt cả module ES và CommonJS
-    const TelegramBot = TelegramBotModule.default || TelegramBotModule;
-    bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN, { polling: false });
+    const TelegramBot = require('node-telegram-bot-api');
+    // Kiểm tra và lấy đúng class constructor
+    const BotClass = typeof TelegramBot === 'function' ? TelegramBot : TelegramBot.default;
+    bot = new BotClass(process.env.TELEGRAM_BOT_TOKEN, { polling: false });
     console.log('Telegram Bot đã sẵn sàng');
   } catch (err) {
     console.error('Lỗi khi khởi tạo Telegram Bot:', err.message);
